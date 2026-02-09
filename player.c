@@ -19,7 +19,7 @@ struct _Player {
     Id id;                    /* identificador del jugador */
     char name[WORD_SIZE + 1]; /* nombre del jugador */
     Id location;              /* id del espacio donde está */
-    Id object;                /* id del objeto que lleva (o NO_ID) */
+    Id object;                /* id del objeto que lleva*/
 };
 
 Player *player_create(Id id){
@@ -51,6 +51,7 @@ Status player_destroy(Player *player){
         return ERROR;
     }
 
+    //Libero memoria 
     free(player);
 
     return OK;
@@ -62,7 +63,7 @@ Id player_get_id(Player *player){
     if(player == NULL){
         return NO_ID;
     }
-
+    //Devuelvo la id deljugador 
     return player->id;
 }
 
@@ -83,7 +84,7 @@ const char *player_get_name(Player *player){
     if(player == NULL){
         return NULL;
     }
-
+    //Devuelvo elnombre
     return player->name;
 }
 
