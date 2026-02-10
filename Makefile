@@ -1,41 +1,39 @@
-cat > Makefile <<'EOF'
-all: game
+EXE = game
+CFLAGS = -Wall -ansi -pedantic
+CC = gcc
+LIB = libscreen.a
 
-game: game_loop.o game.o game_actions.o game_reader.o graphic_engine.o space.o player.o object.o command.o
-	gcc -o game game_loop.o game.o game_actions.o game_reader.o graphic_engine.o space.o player.o object.o command.o libscreen.a
+all: $(EXE)
 
-game_loop.o: game_loop.c
-	gcc -Wall -ansi -pedantic -c game_loop.c
+$(EXE): game.o command.o game_actions.o game_loop.o game_reader.o graphic_engine.o object.o player.o space.o
+	$(CC) -o $@ $^ $(LIB) 
 
 game.o: game.c
-	gcc -Wall -ansi -pedantic -c game.c
-
-game_actions.o: game_actions.c
-	gcc -Wall -ansi -pedantic -c game_actions.c
-
-game_reader.o: game_reader.c
-	gcc -Wall -ansi -pedantic -c game_reader.c
-
-graphic_engine.o: graphic_engine.c
-	gcc -Wall -ansi -pedantic -c graphic_engine.c
-
-space.o: space.c
-	gcc -Wall -ansi -pedantic -c space.c
-
-player.o: player.c
-	gcc -Wall -ansi -pedantic -c player.c
-
-object.o: object.c
-	gcc -Wall -ansi -pedantic -c object.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 command.o: command.c
-	gcc -Wall -ansi -pedantic -c command.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+game_actions.o: game_actions.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+game_loop.o: game_loop.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+game_reader.o: game_reader.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+graphic_engine.o: graphic_engine.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+object.o: object.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+player.o: player.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+space.o: space.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o game
-EOF
-
-
-
-
-	
+	rm -f *.o $(EXE)
