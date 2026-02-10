@@ -57,7 +57,7 @@ Id player_get_id(Player *player) {
     return player->id;
 }
 
-Status player_set_name(Player *player, const char *name) {
+Status player_set_name(Player *player, char *name) {
     if (player == NULL || name == NULL) {
         return ERROR;
     }
