@@ -1,4 +1,12 @@
-
+/**
+ * @brief It defines the object module interface
+ *
+ * @file object.h
+ * @author Jorge Cáceres 
+ * @version 0
+ * @date 09-02-2026
+ * @copyright GNU Public License
+ */
 #include "object.h"
 
 #include <stdio.h>
