@@ -1,26 +1,37 @@
+all: game
 
-EXE = game
-CFLAGS = -Wall -ansi -pedantic
-CC = gcc
+game: game_loop.o game.o game_actions.o game_reader.o graphic_engine.o space.o player.o object.o command.o
+	gcc -o game game_loop.o game.o game_actions.o game_reader.o graphic_engine.o space.o player.o object.o command.o libscreen.a
 
-all: $(EXE)
+game_loop.o: game_loop.c
+	gcc -Wall -ansi -pedantic -c game_loop.c
 
-$(EXE): space.o player.o object.o command.o
-		$(CC) -o $(EXE) space.o player.o object.o command.o
+game.o: game.c
+	gcc -Wall -ansi -pedantic -c game.c
 
-space.o: space.c 
-		$(CC) $(CFLAGS) -c space.c space.o
+game_actions.o: game_actions.c
+	gcc -Wall -ansi -pedantic -c game_actions.c
 
-player.o: player.c 
-		$(CC) $(CFLAGS) -c player.c player.o
+game_reader.o: game_reader.c
+	gcc -Wall -ansi -pedantic -c game_reader.c
 
-object.o: object.c 
-		$(CC) $(CFLAGS) -c object.c object.o
+graphic_engine.o: graphic_engine.c
+	gcc -Wall -ansi -pedantic -c graphic_engine.c
 
-command.o: command.c 
-		$(CC) $(CFLAGS) -c command.c command.o
+space.o: space.c
+	gcc -Wall -ansi -pedantic -c space.c
 
-clean: 
-		rm -f *.o $(EXE) 
+player.o: player.c
+	gcc -Wall -ansi -pedantic -c player.c
+
+object.o: object.c
+	gcc -Wall -ansi -pedantic -c object.c
+
+command.o: command.c
+	gcc -Wall -ansi -pedantic -c command.c
+
+clean:
+	rm -f *.o game
+
 
 	
