@@ -1,6 +1,6 @@
+cat > Makefile <<'EOF'
 all: game
 
-<<<<<<< HEAD
 game: game_loop.o game.o game_actions.o game_reader.o graphic_engine.o space.o player.o object.o command.o
 	gcc -o game game_loop.o game.o game_actions.o game_reader.o graphic_engine.o space.o player.o object.o command.o libscreen.a
 
@@ -33,8 +33,9 @@ command.o: command.c
 
 clean:
 	rm -f *.o game
+EOF
+
+
 
 
 	
-=======
->>>>>>> 169a150 (archivo makefile)
