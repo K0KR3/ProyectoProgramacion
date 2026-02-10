@@ -16,7 +16,7 @@
 struct _Object
 {
     Id id;
-    char name[WORD_SIZE + 1]
+    char name[WORD_SIZE + 1];
 };
 
 Object* object_create(Id id){
@@ -68,18 +68,15 @@ const char* object_get_name(Object* object){
   return object->name;
 }
 
-Status object_print(Object* object){
-    Id idaux = NO_ID;
+Status object_print(Object* object) {
+    if (!object) {
+        return ERROR;
+    }
 
-  /* Error Control */
-  if (!object) {
-    return ERROR;
-  }
+    fprintf(stdout, "--> Object (Id: %ld; Name: %s)\n",
+            object->id,
+            (object->name[0] != '\0') ? object->name : "<no name set>");
 
 
-
-
+    return OK;
 }
-
-
-

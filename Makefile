@@ -6,19 +6,19 @@ CC = gcc
 all: $(EXE)
 
 $(EXE): space.o player.o object.o command.o
-		$(CC) -o space.o player.o object.o command.o
+		$(CC) -o $(EXE) space.o player.o object.o command.o
 
 space.o: space.c 
-		$(CC) $(CFLAGS) -c space.o
+		$(CC) $(CFLAGS) -c space.c space.o
 
 player.o: player.c 
-		$(CC) $(CFLAGS) -c player.o
+		$(CC) $(CFLAGS) -c player.c player.o
 
 object.o: object.c 
-		$(CC) $(CFLAGS) -c object.o
+		$(CC) $(CFLAGS) -c object.c object.o
 
 command.o: command.c 
-		$(CC) $(CFLAGS) -c command.o
+		$(CC) $(CFLAGS) -c command.c command.o
 
 clean: 
 		rm -f *.o $(EXE) 
