@@ -27,7 +27,7 @@ Player *player_create(Id id){
     if(id == NO_ID){
         return NULL;
     }
-
+    //Defino el puntero
     Player *ply= NULL;
 
     //Libero memoria para un nuevo jugador
