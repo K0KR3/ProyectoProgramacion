@@ -2,7 +2,7 @@
  * @brief It defines the game interface
  *
  * @file game_reader.c
- * @author Jorge C y Sergio R
+ * @author Jorge Cáceres
  * @version 0
  * @date 3-01-2026
  * @copyright GNU Public License
@@ -68,3 +68,4 @@ Status game_load_spaces(Game *game, char *filename) {
 
   return status;
 }
+
