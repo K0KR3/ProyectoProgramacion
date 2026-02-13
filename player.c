@@ -19,7 +19,7 @@ struct _Player {
 
 Player* player_create(Id id) {
 
-    Player *ply = NULL;
+    Player *ply=NULL;
 
     if (id == NO_ID) {
         return NULL;
