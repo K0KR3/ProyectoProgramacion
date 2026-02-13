@@ -4,7 +4,7 @@
  * @file player.c
  * @author Sergio
  * @version 0
- * @date 05-02-26
+ * @date 12-02-26
  */
 
 #include "player.h"
@@ -13,83 +13,107 @@
 #include <string.h>
 
 struct _Player {
-    Id id;        /* id del jugador */
-    Id location;  /* id de la localizacion del jugador */
+    Id id;                    /*!< Identificador del jugador */
+    char name[WORD_SIZE + 1]; /*!< Nombre del jugador */
+    Id location;              /*!< Identificador de la ubicación del jugador */
+    Id object;                /*!< Identificador del objeto que porta (si lo hay) */
 };
 
 Player* player_create(Id id) {
-
-    Player *ply=NULL;
+    Player *newPlayer = NULL;
 
     if (id == NO_ID) {
         return NULL;
     }
 
-    ply = (Player *)calloc(1, sizeof(Player));
-    if (!ply) {
+    newPlayer = (Player *) calloc(1, sizeof(Player));
+    if (newPlayer == NULL) {
         return NULL;
     }
 
-    /* Inicializo la id jugador y localizacion */
-    ply->id = id;
-    ply->location = NO_ID;
+    /* Inicialización de variables */
+    newPlayer->id = id;
+    newPlayer->name[0] = '\0';
+    newPlayer->location = NO_ID;
+    newPlayer->object = NO_ID;
 
-    return ply;
+    return newPlayer;
 }
 
 Status player_destroy(Player* player) {
-
-    if (player == NULL) {
+    if (!player) {
         return ERROR;
     }
 
     free(player);
-
     return OK;
 }
 
 Id player_get_id(Player* player) {
-
-    if (player == NULL) {
+    if (!player) {
         return NO_ID;
     }
-
     return player->id;
 }
 
-Status player_set_location(Player *player, Id location) {
-
-    if (player == NULL || location == NO_ID) {
+Status player_set_name(Player* player, char* name) {
+    if (!player || !name) {
         return ERROR;
     }
 
-    player->location = location;
+    if (!strcpy(player->name, name)) {
+        return ERROR;
+    }
 
     return OK;
 }
 
-Id Player_get_location(Player *player) {
+const char* player_get_name(Player* player) {
+    if (!player) {
+        return NULL;
+    }
+    return player->name;
+}
 
-    if (player == NULL) {
+Status player_set_location(Player *player, Id location) {
+    if (!player || location == NO_ID) {
+        return ERROR;
+    }
+    player->location = location;
+    return OK;
+}
+
+Id player_get_location(Player *player) {
+    if (!player) {
         return NO_ID;
     }
-
     return player->location;
+}
+
+Status player_set_object(Player* player, Id id) {
+    if (!player) {
+        return ERROR;
+    }
+    player->object = id;
+    return OK;
+}
+
+Id player_get_object(Player* player) {
+    if (!player) {
+        return NO_ID;
+    }
+    return player->object;
 }
 
 Status player_print(Player *player) {
 
-    if (player == NULL) {
+    if (!player) {
         return ERROR;
     }
 
-    fprintf(stdout, "---> Player, Id: %ld\n", player->id);
-
-    if (player->location != NO_ID) {
-        fprintf(stdout, "---> Location, id: %ld\n", player->location);
-    } else {
-        fprintf(stdout, "---> Location: No hay localizacion\n");
-    }
+    fprintf(stdout, "--> Player (Id: %ld; Name: %s)\n", player->id, player->name);
+    fprintf(stdout, "---> Location: %ld\n", player->location);
+    fprintf(stdout, "---> Object: %ld\n", player->object);
 
     return OK;
 }
