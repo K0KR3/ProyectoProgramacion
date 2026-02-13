@@ -28,6 +28,8 @@ void game_actions_back(Game *game);
 
 void game_actions_take(Game *game);
 
+void game_actions_drop(Game *game);
+
 /**
    Game actions implementation
 */
@@ -58,6 +60,10 @@ Status game_actions_update(Game *game, Command *command) {
     
     case TAKE:
       game_actions_take(game);
+      break;
+    
+    case DROP:
+      game_actions_drop(game);
       break;
 
     default:
@@ -124,6 +130,23 @@ void game_actions_take(Game *game){
   /* Me aseguro que el objeto y el jugador estan en la misma sala  */
   if(player_loc != NO_ID && object_loc == player_loc){
     game_set_object_location(game, NO_ID);
+  }
+
+}
+
+void game_actions_drop(Game *game){
+  Id player_loc = NO_ID;
+  Id object_loc = NO_ID;
+
+  if(game == NULL){
+    return;
+  }
+
+  player_loc = game_get_player_location(game);
+  object_loc = game_get_object_location(game);
+
+  if(player_loc != NO_ID && object_loc == NO_ID){
+    game_set_object_location(game, player_loc);
   }
 
 }
