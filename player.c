@@ -1,11 +1,10 @@
 /**
- * @brief Implementa el player
+ * @brief Implementa el modulo player
  *
  * @file player.c
  * @author Sergio
  * @version 0
- * @date 08-02-2026
- * @copyright GNU Public License
+ * @date 12-02-26
  */
 
 #include "player.h"
@@ -14,42 +13,43 @@
 #include <string.h>
 
 struct _Player {
-    Id id;                    /* identificador del jugador */
-    char name[WORD_SIZE + 1]; /* nombre del jugador */
-    Id location;              /* id del espacio donde está */
-    Id object;                /* id del objeto que lleva */
+    Id id;        /* id del jugador */
+    Id location;  /* id de la localizacion del jugador */
 };
 
-Player *player_create(Id id) {
-    Player *ply = NULL;
+Player* player_create(Id id) {
 
     if (id == NO_ID) {
         return NULL;
     }
+
+    Player *ply = NULL;
 
     ply = (Player *)calloc(1, sizeof(Player));
     if (!ply) {
         return NULL;
     }
 
+    /* Inicializo la id jugador y localizacion */
     ply->id = id;
-    ply->name[0] = '\0';
     ply->location = NO_ID;
-    ply->object = NO_ID;
 
     return ply;
 }
 
-Status player_destroy(Player *player) {
+Status player_destroy(Player* player) {
+
     if (player == NULL) {
         return ERROR;
     }
 
     free(player);
+
     return OK;
 }
 
-Id player_get_id(Player *player) {
+Id player_get_id(Player* player) {
+
     if (player == NULL) {
         return NO_ID;
     }
@@ -57,35 +57,19 @@ Id player_get_id(Player *player) {
     return player->id;
 }
 
-Status player_set_name(Player *player, char *name) {
-    if (player == NULL || name == NULL) {
+Status player_set_location(Player *player, Id location) {
+
+    if (player == NULL || location == NO_ID) {
         return ERROR;
     }
 
-    strcpy(player->name, name);
-    player->name[WORD_SIZE] = '\0';
+    player->location = location;
 
     return OK;
 }
 
-const char *player_get_name(Player *player) {
-    if (player == NULL) {
-        return NULL;
-    }
+Id Player_get_location(Player *player) {
 
-    return player->name;
-}
-
-Status player_set_location(Player *player, Id id) {
-    if (player == NULL || id == NO_ID) {
-        return ERROR;
-    }
-
-    player->location = id;
-    return OK;
-}
-
-Id player_get_location(Player *player) {
     if (player == NULL) {
         return NO_ID;
     }
@@ -93,40 +77,18 @@ Id player_get_location(Player *player) {
     return player->location;
 }
 
-Status player_set_object(Player *player, Id id) {
-    if (player == NULL) {
-        return ERROR;
-    }
-
-    player->object = id;
-    return OK;
-}
-
-Id player_get_object(Player *player) {
-    if (player == NULL) {
-        return NO_ID;
-    }
-
-    return player->object;
-}
-
 Status player_print(Player *player) {
+
     if (player == NULL) {
         return ERROR;
     }
 
-    fprintf(stdout, "--> Player (Id: %ld; Name: %s)\n", (long)player->id, player->name);
+    fprintf(stdout, "---> Player, Id: %ld\n", player->id);
 
     if (player->location != NO_ID) {
-        fprintf(stdout, "--> Location: %ld.\n", (long)player->location);
+        fprintf(stdout, "---> Location, id: %ld\n", player->location);
     } else {
-        fprintf(stdout, "--> No location\n");
-    }
-
-    if (player->object != NO_ID) {
-        fprintf(stdout, "--> Object: %ld.\n", (long)player->object);
-    } else {
-        fprintf(stdout, "--> No object\n");
+        fprintf(stdout, "---> Location: No hay localizacion\n");
     }
 
     return OK;
