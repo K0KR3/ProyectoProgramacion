@@ -9,6 +9,8 @@
  */
 
 #include "game.h"
+#include "game_reader.h"
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,10 +19,6 @@
 /**
    Private functions
 */
-
-Status game_load_spaces(Game *game, char *filename);
-
-Status game_add_space(Game *game, Space *space);
 
 Id game_get_space_id_at(Game *game, int position);
 
@@ -49,7 +47,7 @@ Status game_create_from_file(Game *game, char *filename) {
     return ERROR;
   }
 
-  if (game_load_spaces(game, filename) == ERROR) {
+  if (game_reader_load_spaces(game, filename) == ERROR) {
     return ERROR;
   }
 
@@ -103,14 +101,19 @@ Status game_set_player_location(Game *game, Id id) {
 Id game_get_object_location(Game *game) { return game->object_location; }
 
 Status game_set_object_location(Game *game, Id id) {
-  /*int i = 0; */
 
   if (id == NO_ID) {
     return ERROR;
   }
 
+  if (game->object_location != NO_ID){
+    space_set_object(game_get_space(game, game->object_location), NO_ID);
+  }
+
   game->object_location = id;
-  space_set_object(game_get_space(game, id), TRUE);
+
+  space_set_object(game_get_space(game, id), TRUE); 
+
   return OK;
 }
 
@@ -144,10 +147,6 @@ void game_print(Game *game) {
   printf("=> Player location: %d\n", (int)game->player_location);
 }
 
-/**
-   Implementation of private functions
-*/
-
 Status game_add_space(Game *game, Space *space) {
   if ((space == NULL) || (game->n_spaces >= MAX_SPACES)) {
     return ERROR;
@@ -158,6 +157,10 @@ Status game_add_space(Game *game, Space *space) {
 
   return OK;
 }
+
+/**
+   Implementation of private functions
+*/
 
 Id game_get_space_id_at(Game *game, int position) {
   if (position < 0 || position >= game->n_spaces) {
