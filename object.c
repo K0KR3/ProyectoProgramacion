@@ -1,7 +1,7 @@
 /**
  * @brief It defines the object module interface
  *
- * @file object.h
+ * @file object.c
  * @author Jorge Cáceres 
  * @version 0
  * @date 09-02-2026
