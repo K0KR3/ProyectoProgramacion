@@ -19,11 +19,11 @@ struct _Player {
 
 Player* player_create(Id id) {
 
+    Player *ply = NULL;
+
     if (id == NO_ID) {
         return NULL;
     }
-
-    Player *ply = NULL;
 
     ply = (Player *)calloc(1, sizeof(Player));
     if (!ply) {
