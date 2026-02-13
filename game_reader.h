@@ -12,7 +12,6 @@
 #ifndef GAME_READER_H
 #define GAME_READER_H
 
-#include "game.h"
 #include "types.h"
 
 /**
@@ -21,6 +20,8 @@
  * @param filename Nombre del fichero de datos
  * @return OK si todo va bien, ERROR si falla
  */
-Status game_load_spaces(Game *game, char *filename);
+Status game_reader_load_spaces(Game *game, char *filename);
+
+Status game_create_from_file(Game *game, char *filename);
 
 #endif
