@@ -15,7 +15,6 @@
 /*Defino una estructura privada*/
 struct _Player {
     Id id;                    /*!< Identificador del jugador */
-    char name[WORD_SIZE + 1]; /*!< Nombre del jugador */
     Id location;              /*!< Identificador de la ubicación del jugador */
     Id object;                /*!< Identificador del objeto que porta (si lo hay) */
 };
