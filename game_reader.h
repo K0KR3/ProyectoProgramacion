@@ -13,6 +13,7 @@
 #define GAME_READER_H
 
 #include "types.h"
+#include "game.h"
 
 /**
  * @brief Carga los espacios desde un archivo en el juego
@@ -21,7 +22,5 @@
  * @return OK si todo va bien, ERROR si falla
  */
 Status game_reader_load_spaces(Game *game, char *filename);
-
-Status game_create_from_file(Game *game, char *filename);
 
 #endif

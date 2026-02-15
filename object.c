@@ -1,5 +1,5 @@
 /**
- * @brief It defines the object module interface
+ * @brief It implements the object module
  *
  * @file object.c
  * @author Jorge Cáceres 

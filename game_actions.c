@@ -1,7 +1,7 @@
 /**
  * @brief It implements the game update through user actions
  *
- * @file game.c
+ * @file game_actions.c
  * @author Profesores PPROG
  * @version 0
  * @date 27-01-2025
@@ -26,10 +26,9 @@ void game_actions_next(Game *game);
 
 void game_actions_back(Game *game);
 
-void game_actions_take(Game *game);
+void game_actions_take(Game *game); 
 
 void game_actions_drop(Game *game);
-
 /**
    Game actions implementation
 */
@@ -57,13 +56,16 @@ Status game_actions_update(Game *game, Command *command) {
     case BACK:
       game_actions_back(game);
       break;
-    
+
     case TAKE:
-      game_actions_take(game);
+      game_actions_take(game); 
       break;
-    
+
     case DROP:
       game_actions_drop(game);
+      break;
+
+    case NO_CMD:
       break;
 
     default:
@@ -77,9 +79,13 @@ Status game_actions_update(Game *game, Command *command) {
    Calls implementation for each action
 */
 
-void game_actions_unknown(Game *game) {}
+void game_actions_unknown(Game *game) {
+    (void)game;
+}
 
-void game_actions_exit(Game *game) {}
+void game_actions_exit(Game *game) {
+    game_set_finished(game, TRUE);
+}
 
 void game_actions_next(Game *game) {
   Id current_id = NO_ID;
@@ -116,37 +122,44 @@ void game_actions_back(Game *game) {
   return;
 }
 
-void game_actions_take(Game *game){
-  Id player_loc = NO_ID;
-  Id object_loc = NO_ID;
+void game_actions_take(Game *game) {
+  Id current_location = NO_ID;
+  Id object_location = NO_ID;
+  Id object_id = NO_ID;
+  Space *space = NULL;
+
+  current_location = game_get_player_location(game);
+  if (current_location == NO_ID) return;
+
+  object_location = game_get_object_location(game);
   
-  if(game == NULL){
-    return;
+  if (object_location != NO_ID && current_location == object_location) {
+      
+      space = game_get_space(game, current_location);
+      
+      object_id = space_get_object(space);
+
+      if (object_id != NO_ID) {
+          space_set_object(space, NO_ID);
+          player_set_object(game->player, object_id);
+      }
   }
-
-  player_loc = game_get_player_location(game);
-  object_loc = game_get_object_location(game);
-
-  /* Me aseguro que el objeto y el jugador estan en la misma sala  */
-  if(player_loc != NO_ID && object_loc == player_loc){
-    game_set_object_location(game, NO_ID);
-  }
-
 }
 
-void game_actions_drop(Game *game){
-  Id player_loc = NO_ID;
-  Id object_loc = NO_ID;
+void game_actions_drop(Game *game) {
+  Id current_location = NO_ID;
+  Id object_id = NO_ID;
+  Space *space = NULL;
 
-  if(game == NULL){
-    return;
-  }
+  object_id = player_get_object(game->player);
+  
+  if (object_id == NO_ID) return;
 
-  player_loc = game_get_player_location(game);
-  object_loc = game_get_object_location(game);
+  current_location = game_get_player_location(game);
+  space = game_get_space(game, current_location);
+  
+  if (space == NULL) return;
 
-  if(player_loc != NO_ID && object_loc == NO_ID){
-    game_set_object_location(game, player_loc);
-  }
-
+  space_set_object(space, object_id);
+  player_set_object(game->player, NO_ID);
 }
