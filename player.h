@@ -3,7 +3,7 @@
  *
  * @author Sergio
  * @version 0
- * @date 12-02-26
+ * @date 04-02-26
  */
 
 #ifndef PLAYER_H
@@ -13,6 +13,7 @@
 
 typedef struct _Player Player;
 
+/*Declaración de funciones publicas*/
 /**
  * @brief Crea un nuevo jugador inicializado.
  *
@@ -36,23 +37,6 @@ Status player_destroy(Player* player);
  * @return Id del jugador o NO_ID si player es NULL.
  */
 Id player_get_id(Player* player);
-
-/**
- * @brief Establece el nombre del jugador.
- *
- * @param player Puntero al jugador.
- * @param name Cadena de caracteres con el nombre del jugador.
- * @return OK si todo va bien o ERROR si hay algun fallo.
- */
-Status player_set_name(Player* player, char* name);
-
-/**
- * @brief Obtiene el nombre del jugador.
- *
- * @param player Puntero al jugador.
- * @return Cadena de caracteres con el nombre o NULL si el jugador no existe.
- */
-const char* player_get_name(Player* player);
 
 /**
  * @brief Establece la localizacion del jugador.

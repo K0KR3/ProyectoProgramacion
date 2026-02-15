@@ -4,7 +4,7 @@
  * @file player.c
  * @author Sergio
  * @version 0
- * @date 12-02-26
+ * @date 04-02-26
  */
 
 #include "player.h"
@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*Defino una estructura privada*/
 struct _Player {
     Id id;                    /*!< Identificador del jugador */
     char name[WORD_SIZE + 1]; /*!< Nombre del jugador */
@@ -54,25 +55,6 @@ Id player_get_id(Player* player) {
         return NO_ID;
     }
     return player->id;
-}
-
-Status player_set_name(Player* player, char* name) {
-    if (!player || !name) {
-        return ERROR;
-    }
-
-    if (!strcpy(player->name, name)) {
-        return ERROR;
-    }
-
-    return OK;
-}
-
-const char* player_get_name(Player* player) {
-    if (!player) {
-        return NULL;
-    }
-    return player->name;
 }
 
 Status player_set_location(Player *player, Id location) {
