@@ -32,8 +32,6 @@ typedef struct _Game {
 /** 
  * @brief Crea el juego
  * 
- * @author Sergio
- * 
  * @param game Puntero al juego
  * @return OK si todo va bien o ERROR si game es NULL
  */

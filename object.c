@@ -1,5 +1,5 @@
 /**
- * @brief It implements the object module
+ * @brief Implementa el modulo object
  *
  * @file object.c
  * @author Jorge Cáceres 
