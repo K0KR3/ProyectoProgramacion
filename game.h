@@ -39,7 +39,6 @@ typedef struct _Game {
  */
 Status game_create(Game *game);
 
-
 /**
  * @brief Crea el juego desde un fichero
  * 
@@ -94,28 +93,59 @@ Id game_get_object_location(Game *game);
 /**
  * @brief Establece la localización del objeto
  * 
- * @param game Puntero al jugador
+ * @param game Puntero al juego
  * @param id del objeto
  * @return OK si todo va bien o NULL si hay error
  */
 Status game_set_object_location(Game *game, Id id);
 
 /**
- * @brief 
+ * @brief Obtiene el ultimo comando
  * 
  * @param game 
- * @return Command* 
+ * @return Command* o NULL si hay error
  */
 Command* game_get_last_command(Game *game);
 
+/**
+ * @brief Establece el ultimo comando
+ * 
+ * @param game Puntero al juego
+ * @param command Comando
+ * @return OK si todo va bien o NULL si hay error
+ */
 Status game_set_last_command(Game *game, Command *command);
 
+/**
+ * @brief Indica si el juego ha terminado
+ * 
+ * @param game Puntero al juego
+ * @return TRUE si ha terminado o FALSE si no ha terminado 
+ */
 Bool game_get_finished(Game *game);
-
+/**
+ * @brief Establece si el juego ha terminado
+ * 
+ * @param game 
+ * @param finished 
+ * @return OK si todo va bien o NULL si hay error 
+ */
 Status game_set_finished(Game *game, Bool finished);
 
+/**
+ * @brief Imprime el estado del jugador
+ * 
+ * @param game Puntero al juego
+ */
 void game_print(Game *game);
 
+/**
+ * @brief Añade un espacio al juego
+ * 
+ * @param game Puntero al juego
+ * @param space Puntero al espacio
+ * @return OK si todo va bien o NULL si hay error 
+ */
 Status game_add_space(Game *game, Space *space);
 
 #endif
