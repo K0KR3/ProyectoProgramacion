@@ -33,7 +33,6 @@ Player* player_create(Id id) {
 
     /* Inicialización de variables */
     newPlayer->id = id;
-    newPlayer->name[0] = '\0';
     newPlayer->location = NO_ID;
     newPlayer->object = NO_ID;
 
@@ -91,8 +90,7 @@ Status player_print(Player *player) {
     if (!player) {
         return ERROR;
     }
-
-    fprintf(stdout, "--> Player (Id: %ld; Name: %s)\n", player->id, player->name);
+    
     fprintf(stdout, "---> Location: %ld\n", player->location);
     fprintf(stdout, "---> Object: %ld\n", player->object);
 
