@@ -31,7 +31,7 @@ Player* player_create(Id id) {
         return NULL;
     }
 
-    /* Inicialización de variables */
+    /* Inicializo de variables */
     newPlayer->id = id;
     newPlayer->location = NO_ID;
     newPlayer->object = NO_ID;
@@ -40,7 +40,7 @@ Player* player_create(Id id) {
 }
 
 Status player_destroy(Player* player) {
-    if (!player) {
+    if (player == NULL) {
         return ERROR;
     }
 
@@ -49,14 +49,14 @@ Status player_destroy(Player* player) {
 }
 
 Id player_get_id(Player* player) {
-    if (!player) {
+    if (player == NULL) {
         return NO_ID;
     }
     return player->id;
 }
 
 Status player_set_location(Player *player, Id location) {
-    if (!player || location == NO_ID) {
+    if (player == NULL || location == NO_ID) {
         return ERROR;
     }
     player->location = location;
@@ -64,14 +64,14 @@ Status player_set_location(Player *player, Id location) {
 }
 
 Id player_get_location(Player *player) {
-    if (!player) {
+    if (player == NULL) {
         return NO_ID;
     }
     return player->location;
 }
 
 Status player_set_object(Player* player, Id id) {
-    if (!player) {
+    if (player == NULL) {
         return ERROR;
     }
     player->object = id;
@@ -79,7 +79,7 @@ Status player_set_object(Player* player, Id id) {
 }
 
 Id player_get_object(Player* player) {
-    if (!player) {
+    if (player == NULL) {
         return NO_ID;
     }
     return player->object;
@@ -87,10 +87,10 @@ Id player_get_object(Player* player) {
 
 Status player_print(Player *player) {
 
-    if (!player) {
+    if (player == NULL) {
         return ERROR;
     }
-    
+
     fprintf(stdout, "---> Location: %ld\n", player->location);
     fprintf(stdout, "---> Object: %ld\n", player->object);
 
